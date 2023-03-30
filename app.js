@@ -1,16 +1,13 @@
 const express = require('express')
+
 const app = express()
 
-const {value} = require('./test')
+// app.get('/', function(req, res){
+//   res.send("<h1>Home page</h1>")
+// })
 
-app.get('/' , function(req,res){
-  res.json([{name:"Shwetank", id: 4}, {name:"Mishra", id: 10}])
-})
+app.use(express.static("./public"))
 
-app.get('/value' , function(req,res){
-  res.json(value)
-})
-
-app.listen(5000,function(){
-  console.log("SV IS ON ON 5000")
+app.listen(5000, function(){
+  console.log("APP ON PORT 5000")
 })
