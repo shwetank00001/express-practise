@@ -1,27 +1,31 @@
 const express = require('express')
-const app = express()
+const app= express()
 
-app.get('/', (req, res) => {
-  console.log('user hit the resource')
-  res.status(200).send('Home Page')
+
+app.get('/', function(req,res){
+    res.send('Home Page')
+
 })
 
-app.get('/about', (req, res) => {
-  res.status(200).send('About Page')
+app.get('/contact', function(req,res){
+    res.status(200).send('Contact page')
 })
 
-app.all('*', (req, res) => {
-  res.status(404).send('<h1>resource not found</h1>')
+app.all('*', function(req,res){
+    res.status(404).send('Error 404')
 })
 
-app.listen(5000, () => {
-  console.log('server is listening on port 5000...')
+
+app.listen(5000 , function(){
+    console.log('Server is running on port 5000')
 })
 
-// app.get
-// app.post
-// app.put
-// app.delete
-// app.all
-// app.use
-// app.listen
+
+//app.get
+//app.post
+//app.put
+//app.delete
+//app.get
+//app.all
+//app.listen
+//app.use - > middleware

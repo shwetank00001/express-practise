@@ -1,16 +1,16 @@
-const http = require('http')
+const express = require('express')
+const app = express()
 
-const server = http.createServer(function(req,res){
-    // console.log(req.method) GET method
-    console.log(req.url)
-    if(req.url === '/'){
-        res.writeHead(200, {'content-type' : 'text/html'})
-        res.write(`<h1>WELCOME</h1>`)
-        res.end()
-    }
-    if(req.url === '/contact'){
-        res.end('This is contacts')
-    }
+const {value} = require('./test')
+
+app.get('/' , function(req,res){
+  res.json([{name:"Shwetank", id: 4}, {name:"Mishra", id: 10}])
 })
 
-server.listen(5000)
+app.get('/value' , function(req,res){
+  res.json(value)
+})
+
+app.listen(5000,function(){
+  console.log("SV IS ON ON 5000")
+})
