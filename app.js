@@ -9,8 +9,8 @@ app.get('/', (req, res) => {
 // here we are selective of what we are sending back so we are destructuring the vlaues we need and then displaying them
 app.get('/products', function(req,res){
   const newProducts = products.map(function(item){
-    const {id,name,image} = item
-    return({id,name,image})
+    const {id,name,image,desc} = item
+    return({id,name,image,desc})
   })
 
   res.json(newProducts)
