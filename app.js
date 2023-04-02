@@ -1,19 +1,19 @@
 const express = require('express')
 const app = express()
 
-const { products } = require('./data')
+const { people } = require('./data')
 
 app.get('/', (req, res) => {
-  res.send("<h1>HOme page</h1><a href='/products'>Products</a>")
+  res.send('<h1>Click to view database data from data.js</h1><a href="/people">Click Here</a>')
 })
-// here we are selective of what we are sending back so we are destructuring the vlaues we need and then displaying them
-app.get('/products', function(req,res){
-  const newProducts = products.map(function(item){
-    const {id,name,image,desc} = item
-    return({id,name,image,desc})
-  })
+app.get('/people',function(req, res){
 
-  res.json(newProducts)
+  const singleData = people.map(function(item){
+    const {id} = item
+    return({id})
+  })
+  res.json(singleData)
+
 })
 
 app.listen(5000, () => {
