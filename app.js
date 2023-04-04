@@ -1,30 +1,21 @@
 const express = require('express')
-const app= express()
+const app = express()
 
-const {products} = require('./data')
+const { products } = require('./data')
 
-
-
-
-
-app.get('/', (req,res)=>{
-  res.send('Home Page! <a href= "/products">Click here </a><a href="/products/api">CLick for few Data</a>')
+app.get('/', (req, res) => {
+  res.send("<h1>HOme page</h1><a href='/products'>Products</a>")
 })
-
+// here we are selective of what we are sending back so we are destructuring the vlaues we need and then displaying
 app.get('/products', function(req,res){
-  res.json(products)
-})
-
-app.get('/products/api', function(req,res){
-  const newProd = products.map(function(item){
+  const newProducts = products.map(function(item){
     const {id,name} = item
     return({id,name})
   })
 
-  res.send(newProd)
-  
+  res.json(newProducts)
 })
 
-app.listen(5000, ()=>{
-  console.log('AT port 5000')
+app.listen(5000, () => {
+  console.log('Server is listening on port 5000....')
 })
