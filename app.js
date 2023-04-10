@@ -1,20 +1,18 @@
 const express = require('express')
 const app = express()
 
-const { products } = require('./data')
+const people = require('./routes/people')
+const auth = require('./routes/auth')
 
-app.get('/', (req, res) => {
-  res.send("<h1>HOme page</h1><a href='/products'>Products</a>")
-})
-// here we are selective of what we are sending back so we are destructuring the vlaues we need and then displaying
-app.get('/products', function(req,res){
-  const newProducts = products.map(function(item){
-    const {id,name} = item
-    return({id,name})
-  })
+// static assets
+app.use(express.static('./methods-public'))
+// parse form data
+app.use(express.urlencoded({ extended: false }))
+// parse json
+app.use(express.json())
 
-  res.json(newProducts)
-})
+app.use('/api/people', people)
+app.use('/login', auth)
 
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')
