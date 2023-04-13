@@ -1,21 +1,19 @@
 const express = require('express')
 const app = express()
 
-//  req => middleware => res
+const { products } = require('./data')
 
-const logger = (req, res, next) => {
-  const method = req.method
-  const url = req.url
-  const time = new Date().getFullYear()
-  console.log(method, url, time)
-  next()
-}
-
-app.get('/', logger, (req, res) => {
-  res.send('Home')
+app.get('/', (req, res) => {
+  res.send("<h1>HOme page</h1><a href='/products'>Products</a>")
 })
-app.get('/about', logger, (req, res) => {
-  res.send('About')
+// here we are selective of what we are sending back so we are destructuring the vlaues we need and then displaying them
+app.get('/products', function(req,res){
+  const newProducts = products.map(function(item){
+    const {id,name,image} = item
+    return({id,name,image})
+  })
+
+  res.json(newProducts)
 })
 
 app.listen(5000, () => {
