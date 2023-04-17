@@ -22,17 +22,13 @@ app.get("/products/few", function(req, res){
 // })
 
 
-// ROUTE PARAMS - a placeholder type of where user provides the data
+// ROUTE PARAMS
 app.get("/products/few/:productID", function(req, res){
   console.log(req)
   console.log(req.params)
 
   const {productID} = req.params
   const singleProd = products.find((item) => item.id ===Number(productID))
-
-  if(!singleProd){
-    res.status(404).send("Product does not exist")
-  }
   res.send(singleProd)
 })
 
