@@ -1,42 +1,31 @@
 const express = require('express')
-const app= express()
+const app = express()
 
-const {products} = require('./data')
 
-app.get("/", function(req,res){
-  res.send("Hello, these are the products detail, <a href='/products/few'>Click here </a>")
+
+
+function logger(req,res,next){
+  const method = req.method
+  const url = req.url
+  const time = new Date().getFullYear()
+  console.log(method,url,time)
+  // res.send("testing") // we are terminating this cycle here
+  next()// ALWAYS-> EITHER WE TERMINATE ^^ LIKE THIS HERE OR WE PASS THE CYCLE TO NEXT METHOD
+
+}
+
+
+//when we work with middleware, we must send it to nxt middleware
+// when we 
+app.get('/', logger, function(req,res){
+  res.status(200).send('this is home')
 })
 
-app.get("/products/few", function(req, res){
-  const newProd = products.map(function(item){
-    const {id,name,image} = item
-    return({id,name,image})
-  })
-  res.json(newProd)
+app.get('/about',logger, (req,res) =>{
+  res.status(200).send("this is about")
 })
 
+app.listen(5000, ()=>{
 
-// app.get("/products/few/1", function(req, res){
-//   const singleProd = products.find((item) => item.id ===1)
-//   res.send(singleProd)
-// })
-
-
-// ROUTE PARAMS - a placeholder type of where user provides the data
-app.get("/products/few/:productID", function(req, res){
-  console.log(req)
-  console.log(req.params)
-
-  const {productID} = req.params
-  const singleProd = products.find((item) => item.id ===Number(productID))
-
-  if(!singleProd){
-    res.status(404).send("Product does not exist")
-  }
-  res.send(singleProd)
-})
-
-
-app.listen(5000, function(){
   console.log("APP ON PORT 5000")
-})
+}) 
