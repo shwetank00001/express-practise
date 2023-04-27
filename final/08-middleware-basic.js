@@ -1,23 +1,31 @@
 const express = require('express')
 const app = express()
 
-//  req => middleware => res
 
-const logger = (req, res, next) => {
+
+
+function logger(req,res,next){
   const method = req.method
   const url = req.url
   const time = new Date().getFullYear()
-  console.log(method, url, time)
-  next()
+  console.log(method,url,time)
+  // res.send("testing") // we are terminating this cycle here
+  next()// ALWAYS-> EITHER WE TERMINATE ^^ LIKE THIS HERE OR WE PASS THE CYCLE TO NEXT METHOD
+
 }
 
-app.get('/', logger, (req, res) => {
-  res.send('Home')
-})
-app.get('/about', logger, (req, res) => {
-  res.send('About')
+
+//when we work with middleware, we must send it to nxt middleware
+// when we 
+app.get('/', logger, function(req,res){
+  res.status(200).send('this is home')
 })
 
-app.listen(5000, () => {
-  console.log('Server is listening on port 5000....')
+app.get('/about',logger, (req,res) =>{
+  res.status(200).send("this is about")
 })
+
+app.listen(5000, ()=>{
+
+  console.log("APP ON PORT 5000")
+}) 
