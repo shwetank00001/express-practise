@@ -1,7 +1,4 @@
-
-
 const express=  require('express')
-const auth = require('./auth')
 
 const app = express()
 
@@ -12,7 +9,7 @@ function logger(req,res,next){
     next()
 }
 
-app.use([auth,logger]) // executuion in order
+app.use(logger)
 
 app.get('/', (req,res)=> {
     res.send("HOME")

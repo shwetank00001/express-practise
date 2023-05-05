@@ -12,7 +12,7 @@ function logger(req,res,next){
   // res.send("testing") // we are terminating this cycle here
   next()// ALWAYS-> EITHER WE TERMINATE ^^ LIKE THIS HERE OR WE PASS THE CYCLE TO NEXT METHOD
 
-}
+} 
 
 
 //when we work with middleware, we must send it to nxt middleware
