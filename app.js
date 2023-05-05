@@ -1,41 +1,11 @@
-
-
-const express=  require('express')
-const auth = require('./auth')
-
+const express = require('express')
 const app = express()
+const {people} = require('./data')
 
-function logger(req,res,next){
-    const method = req.method
-    const url = req.url
-    console.log(method,url)
-    next()
-}
-
-app.use([auth,logger]) // executuion in order
-
-app.get('/', (req,res)=> {
-    res.send("HOME")
-})
-app.get('/About',  (req,res)=> {
-    res.send("About")
+app.get('/', (req,res)=>{
+    res.status(200).json({success:"true",people})
 })
 
-
-
-// app.get('/', (req,res)=> {
-//     const method = req.method
-//     const url = req.url
-//     console.log(method, url)
-//     res.send("Test")
-// })
-// app.get('/about', (req,res)=> {
-//     const method = req.method
-//     const url = req.url
-//     console.log(method, url)
-//     res.send("About")
-// })
-
-app.listen(5000, ()=>{
+app.listen(5000,(req,res)=>{
     console.log("APP ON PORT 5000")
 })
