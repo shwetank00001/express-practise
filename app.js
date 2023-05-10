@@ -21,7 +21,11 @@ app.get('/api/people', (req,res)=>{
 
 app.post('/login', (req,res)=>{
     console.log(req.body)
-    res.send("POST")
+    const {name, age} = req.body
+    if(name){
+        return res.send(`Welcome ${name} ${age}`).status(200)
+    }
+    res.send("Add a name")
 })
 
 // how can we insert data on server ? We use POST method to send data
